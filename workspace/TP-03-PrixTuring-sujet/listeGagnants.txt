@@ -1,0 +1,50 @@
+Richard Hamming
+Marvin Minsky
+James H. Wilkinson
+John McCarthy
+Charles Bachman
+Allen Newell
+Michael Rabin
+John Backus
+Robert Floyd
+Kenneth Iverson
+Edgar Frank Codd
+Stephen Cook
+Kenneth Thompson
+Niklaus Wirth
+Richard Karp
+John Hopcroft
+Ivan Sutherland
+William Kahan
+Fernando Corbató
+Robin Milner
+Butler Lampson
+Juris Hartmanis 
+Edward Feigenbaum
+Manuel Blum
+Amir Pnueli
+Douglas Engelbart
+James Gray
+Frederick Brooks
+Andrew Yao
+Ole-Johan Dahl
+Ronald L. Rivest
+Vinton G. Cerf
+Peter Naur
+Frances Allen
+Edmund M. Clarke, Allen Emerson et Joseph Sifakis
+Barbara Liskov
+Alan Kay
+Charles P. Thacker
+Leslie Valiant
+Judea Pearl
+Silvio Micali et Shafi Goldwasser
+Maurice Wilkes
+John Cocke
+Edsger Dijkstra
+Donald Knuth
+Alan J. Perlis
+Charles A. R. Hoare
+Leslie Lamport
+Michael Stonebraker
+Whitfield Diffie et Martin Hellman

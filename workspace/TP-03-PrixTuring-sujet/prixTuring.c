@@ -17,6 +17,12 @@
 #include <string.h>
 #include <stdbool.h>
 
+struct winnersTuring{
+		int winnersAnnee; 
+		char winnersName;
+		char winnersDescription;
+};
+
 /* This function scans a line of text (until \n) and returns a char* that contains all characters on the line (up to 255) excluding \n.
 It also ensures the \0 termination.
 **WARNING**: The result of this function has been allocated (calloc) by the function */
@@ -48,12 +54,48 @@ int scanLineAsInt() {
 	return buf;
 }
 
+void readWinners(){
+	int nbreGagnants = scanLineAsInt();
+	char *winnersName = malloc(nbreGagnants * sizeof(char));
+	struct winnersTuring *winners = malloc(nbreGagnants * 3 * sizeof(char));
+	winners->winnersName = malloc(nbreGagnants*sizeof(char));
+	winners->winnersAnnee = malloc(nbreGagnants*sizeof(int));
+	winners->winnersDescription = malloc(nbreGagnants*sizeof(char));
 
-int main(void)
-{
+	for(int i=0; i<nbreGagnants;i++){
+		//Annees
+		char *winnerAnnee = scanLine();
+		winners->winnersAnnee[i] = *winnerAnnee; 
+		free(winnerAnnee);
 
-	int nbGagnants = scanLineAsInt();
-	printf("nbGagnants = %i\n",nbGagnants);
+		//Noms 
+		char *winnerName = scanLine(); 
+		winners->winnersName[i] = *winnerName; 
+		printf("%s\n", winnerName);
+		free(winnerName);
+
+		//Descriptions
+		scanLine();
+	}
+}
+
+void infosAnnee(){
+	printf("L'annee %i, le(s) gagnant(s) ont été : %s\n Nature des travaux : %s\n",);
+}
+
+
+int main(void){
+
+	// Afficher le document texte 
+
+	// char *line = scanLine();
+	// while(strlen(line)!=0){
+	// 	printf("%s\n",line);
+	// 	free(line);
+	// 	line = scanLine();
+	// }	
+
+	readWinners();
 
 	return EXIT_SUCCESS;
 }
