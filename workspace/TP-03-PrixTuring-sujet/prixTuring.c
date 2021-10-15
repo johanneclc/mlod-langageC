@@ -18,10 +18,12 @@
 #include <stdbool.h>
 
 struct winnersTuring{
-		int winnersAnnee; 
-		char winnersName;
-		char winnersDescription;
+		int winnerAnnee; 
+		char winnerName;
+		char winnerDescription;
 };
+
+typedef struct winnersTuring winnersInfos; 
 
 /* This function scans a line of text (until \n) and returns a char* that contains all characters on the line (up to 255) excluding \n.
 It also ensures the \0 termination.
@@ -54,48 +56,43 @@ int scanLineAsInt() {
 	return buf;
 }
 
-void readWinners(){
-	int nbreGagnants = scanLineAsInt();
-	char *winnersName = malloc(nbreGagnants * sizeof(char));
-	struct winnersTuring *winners = malloc(nbreGagnants * 3 * sizeof(char));
-	winners->winnersName = malloc(nbreGagnants*sizeof(char));
-	winners->winnersAnnee = malloc(nbreGagnants*sizeof(int));
-	winners->winnersDescription = malloc(nbreGagnants*sizeof(char));
+void readWinners(winnersInfos **winners,int nbreGagnants ){
+	*winners = (winnersInfos *)calloc(nbreGagnants, sizeof(winnersInfos)); 
 
-	for(int i=0; i<nbreGagnants;i++){
-		//Annees
-		char *winnerAnnee = scanLine();
-		winners->winnersAnnee[i] = *winnerAnnee; 
-		free(winnerAnnee);
-
-		//Noms 
-		char *winnerName = scanLine(); 
-		winners->winnersName[i] = *winnerName; 
-		printf("%s\n", winnerName);
-		free(winnerName);
-
-		//Descriptions
-		scanLine();
+	for(int i = 0; i < nbreGagnants ; i++){
+		(*winners)[i].winnerAnnee = scanLineAsInt(); 
+		(*winners)[i].winnerName = scanLineAs(); 
+		(*winners)[i].winnerDescription = scanLineAs(); 
 	}
 }
 
-void infosAnnee(){
-	printf("L'annee %i, le(s) gagnant(s) ont été : %s\n Nature des travaux : %s\n",);
+void printWinners(winnersInfos *winners, int nbreGagnants){
+	for(int i=0 ; i < nbreGagnants ; i++){
+		printf(winners[i].winnerName);
+	}
+}
+
+void infosAnnee(int annee){
+	char listeGagnants, listeDescriptions; 
+	readWinners(); 
+	for(int i=0; i<nbreGagnants; i++){
+		if(winners[i].winnersAnnee==annee){
+			listeGagnants+= winners[i].winnersName+'/n';
+			listeDescriptions+= winners[i].winnersDescription+'/n';
+		}
+	}
+
+	printf("L'annee %i, le(s) gagnant(s) ont été : %s\n Nature des travaux : %s\n",annee, listeGagnants, listeDescriptions);
 }
 
 
-int main(void){
+int main(char fonction , int annee){
 
-	// Afficher le document texte 
-
-	// char *line = scanLine();
-	// while(strlen(line)!=0){
-	// 	printf("%s\n",line);
-	// 	free(line);
-	// 	line = scanLine();
-	// }	
-
-	readWinners();
+	int nbreGagnants = scanLineAsInt(); 
+	winnersInfos *winners; 
+	readWinners(&winners, nbreGagnants); 
+	printWinners(winners , nbreGagnants); 
+	free(winners); 
 
 	return EXIT_SUCCESS;
 }
