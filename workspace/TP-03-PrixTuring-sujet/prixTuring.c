@@ -61,37 +61,51 @@ void readWinners(winnersInfos **winners,int nbreGagnants ){
 
 	for(int i = 0; i < nbreGagnants ; i++){
 		(*winners)[i].winnerAnnee = scanLineAsInt(); 
-		(*winners)[i].winnerName = scanLineAs(); 
-		(*winners)[i].winnerDescription = scanLineAs(); 
+		(*winners)[i].winnerName = *scanLine(); 
+		(*winners)[i].winnerDescription = *scanLine(); 
 	}
 }
 
 void printWinners(winnersInfos *winners, int nbreGagnants){
 	for(int i=0 ; i < nbreGagnants ; i++){
-		printf(winners[i].winnerName);
+		printf('%s /n', winners[i].winnerName);
 	}
 }
 
-void infosAnnee(int annee){
-	char listeGagnants, listeDescriptions; 
-	readWinners(); 
+void infosAnnee(int annee,winnersInfos *winners, int nbreGagnants){
+	printf("L'annee %i, le(s) gagnant(s) ont été : ", annee);
 	for(int i=0; i<nbreGagnants; i++){
-		if(winners[i].winnersAnnee==annee){
-			listeGagnants+= winners[i].winnersName+'/n';
-			listeDescriptions+= winners[i].winnersDescription+'/n';
+		if(winners[i].winnerAnnee==annee){
+			printf('%s/n',winners[i].winnerName);
+		}
+	}
+	printf("/n Nature des travaux : ");
+	for(int i=0; i<nbreGagnants; i++){
+		if(winners[i].winnerAnnee==annee){
+			printf('%s/n',winners[i].winnerDescription);
 		}
 	}
 
-	printf("L'annee %i, le(s) gagnant(s) ont été : %s\n Nature des travaux : %s\n",annee, listeGagnants, listeDescriptions);
 }
 
 
-int main(char fonction , int annee){
+int main(int argc , char* argv[]){
 
 	int nbreGagnants = scanLineAsInt(); 
+
 	winnersInfos *winners; 
+
 	readWinners(&winners, nbreGagnants); 
-	printWinners(winners , nbreGagnants); 
+	
+	if(argc==2){
+		if(*argv[0] == 'infosAnnee')
+			infosAnnee((int) argv[1], winners , nbreGagnants); 
+		else return 0 ; 
+	}
+	else{
+		printWinners(winners , nbreGagnants); 
+	}
+
 	free(winners); 
 
 	return EXIT_SUCCESS;
