@@ -19,8 +19,8 @@
 
 struct winnersTuring{
 		int winnerAnnee; 
-		char winnerName;
-		char winnerDescription;
+		char *winnerName;
+		char *winnerDescription;
 };
 
 typedef struct winnersTuring winnersInfos; 
@@ -56,19 +56,25 @@ int scanLineAsInt() {
 	return buf;
 }
 
-void readWinners(winnersInfos **winners,int nbreGagnants ){
-	*winners = (winnersInfos *)calloc(nbreGagnants, sizeof(winnersInfos)); 
+winnersInfos * readWinners(int nbreGagnants ){
+	winnersInfos *winners = (winnersInfos *)calloc(nbreGagnants, sizeof(winnersInfos)); 
 
 	for(int i = 0; i < nbreGagnants ; i++){
-		(*winners)[i].winnerAnnee = scanLineAsInt(); 
-		(*winners)[i].winnerName = *scanLine(); 
-		(*winners)[i].winnerDescription = *scanLine(); 
+		winners[i].winnerAnnee = scanLineAsInt(); 
+		//char *winnerName = scanLine(); 
+		//char *winnerDescription = scanLine(); 
+		winners[i].winnerName = scanLine(); 
+		winners[i].winnerDescription = scanLine(); 
+		//free(winnerName); 
+		//free(winnerDescription); 
 	}
+
+	return winners;
 }
 
 void printWinners(winnersInfos *winners, int nbreGagnants){
 	for(int i=0 ; i < nbreGagnants ; i++){
-		printf('%s /n', winners[i].winnerName);
+		printf("%s\n", winners[i].winnerName);
 	}
 }
 
@@ -76,13 +82,13 @@ void infosAnnee(int annee,winnersInfos *winners, int nbreGagnants){
 	printf("L'annee %i, le(s) gagnant(s) ont été : ", annee);
 	for(int i=0; i<nbreGagnants; i++){
 		if(winners[i].winnerAnnee==annee){
-			printf('%s/n',winners[i].winnerName);
+			printf("%s\n",winners[i].winnerName);
 		}
 	}
-	printf("/n Nature des travaux : ");
+	printf("\n Nature des travaux : ");
 	for(int i=0; i<nbreGagnants; i++){
 		if(winners[i].winnerAnnee==annee){
-			printf('%s/n',winners[i].winnerDescription);
+			printf("%s\n",winners[i].winnerDescription);
 		}
 	}
 
@@ -95,16 +101,15 @@ int main(int argc , char* argv[]){
 
 	winnersInfos *winners; 
 
-	readWinners(&winners, nbreGagnants); 
+	winners = readWinners(nbreGagnants); 
+	printWinners(winners , nbreGagnants); 
 	
-	if(argc==2){
-		if(*argv[0] == 'infosAnnee')
-			infosAnnee((int) argv[1], winners , nbreGagnants); 
-		else return 0 ; 
-	}
-	else{
-		printWinners(winners , nbreGagnants); 
-	}
+	//if(argc==2){
+	//		infosAnnee((int) *argv[1], winners , nbreGagnants); 
+	//	else return 0 ; 
+	//else{
+	//	printWinners(winners , nbreGagnants); 
+	//}
 
 	free(winners); 
 
