@@ -6,17 +6,17 @@
 struct matrice{
 		int nbreColonnes; 
 		int nbreLignes;
-		int *tab[][];
+		int *tab;
 };
 
 typedef struct matrice Matrix; 
 
 struct tabMatrices{
 		int nbreMatrices; 
-		int *tab[];
+		int *tab;
 };
 
-typedef struct matrice MatrixArray; 
+typedef struct tabMatrices MatrixArray; 
 
 int scanLineAsInt() {
 	int buf;
@@ -24,11 +24,18 @@ int scanLineAsInt() {
 	return buf;
 }
 
-MatrixArray readMatrixArray(int nbreMatrices){
+MatrixArray * readMatrixArray(int nbreMatrices){
+    MatrixArray *matrices = (MatrixArray *)malloc(sizeof(MatrixArray)); 
+    matrices -> nbreMatrices = nbreMatrices;
+    for(int i=0 ; i<nbreMatrices; i++){
+        int nbreColonne, nbreLignes;
+        scanf("%i %i", &nbreLignes, &nbreColonne);
+        matrices->tab[i] = readMatrix(nbreLignes,nbreColonne); 
+    }
 
 }
 
-int main(int argc , char* argv[]){
+int main(){
 
 	int nbreMatrices = scanLineAsInt(); 
 
