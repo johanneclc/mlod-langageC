@@ -89,7 +89,7 @@ void infosAnnee(int annee,winnersInfos *winners, int nbreGagnants){
 	for(int i=0; i<nbreGagnants; i++){
 		if(winners[i].winnerAnnee==annee){
 			printf("%s\n",winners[i].winnerDescription);
-		}
+		} 
 	}
 
 }
