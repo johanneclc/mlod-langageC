@@ -27,17 +27,16 @@ int scanLineAsInt() {
 Matrix *readMatrix(){
     int nbreColonnes, nbreLignes;
     scanf("%i %i\n", &nbreLignes, &nbreColonnes);
-    Matrix *matrice = (Matrix *)calloc(nbreLignes, nbreColonnes*sizeof(int)); 
+    Matrix *matrice = (Matrix *)malloc(nbreLignes*nbreColonnes*sizeof(int)); 
     matrice -> nbreColonnes = nbreColonnes; 
     matrice -> nbreLignes = nbreLignes;
     for(int l=0; l<nbreLignes; l++){
         for(int c=0; c<nbreColonnes; c++){
             int n; 
             (l== nbreColonnes-1 ? scanf("%i\n",&n) : scanf("%i ",&n)) ;
-            matrice[l].tab[c] = n; 
+            matrice->tab[l][c] = n; 
         }
     }
-
     return matrice; 
 }
 
@@ -47,15 +46,13 @@ MatrixArray *readMatrixArray(int nbreMatrices){
     for(int i=0 ; i<nbreMatrices; i++){
         matrices[i].tab[i] = readMatrix(); 
     }
-
     return matrices; 
-
 }
 
 void printMatrix(Matrix matrice){
     for(int l=0; l<matrice.nbreLignes;l++){
         for(int c=0; l<matrice.nbreColonnes;c++)
-            (c==matrice.nbreColonnes-1 ? printf("%i\n",matrice[l].tab[c]) : printf("%i ",matrice[l].tab[c]));
+            (c==matrice.nbreColonnes-1 ? printf("%i\n",matrice->tab[l][c]) : printf("%i ",matrice->tab[l][c]));
     }
 }
 
@@ -64,10 +61,7 @@ void printMatrixArray(MatrixArray *matrices, int nbreMatrices){
 	for(int i=0 ; i < nbreMatrices ; i++){
         printf("%i %i\n",*(matrices->tab)[i].nbreLignes,matrices->tab[i].nbreColonnes);
 		printMatrix(matrices.tab[i]); 
-}
-
-
-
+    }
 }
 
 int main(){
