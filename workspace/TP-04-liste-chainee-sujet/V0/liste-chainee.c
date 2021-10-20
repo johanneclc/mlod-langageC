@@ -11,12 +11,19 @@ bool estVide(Liste l) {
 
 // créer une liste d'un seul élément contenant la valeur v
 Liste creer(Element v){
-	return TODO;
+	Liste liste = malloc(sizeof(Liste)) ; 
+	liste->val = v; 
+	liste->suiv = NULL; 
+	return liste;
 }
 
 // ajoute l'élément v en tete de la liste l
 Liste ajoutTete(Element v, Liste l) {
-	return TODO;
+	Cellule *cellule = malloc(sizeof(Cellule));
+	cellule->suiv = l; 
+	cellule->val = v; 
+	l = cellule;
+	return l; 
 }
 
 
@@ -30,31 +37,65 @@ void afficheElement(Element e) {
 // Attention la liste peut être vide !
 // version itérative
 void afficheListe_i(Liste l) {
-	TODO;
+	if(estVide(l))
+		printf("La liste est vide !");
+	else {
+		Liste cellule_parcourue = l; 
+		while(cellule_parcourue != NULL){
+			afficheElement(cellule_parcourue->val);
+			cellule_parcourue = cellule_parcourue->suiv;
+		}
+		printf("\n");
+	}
 }
 
 // version recursive
 void afficheListe_r(Liste l) {
-	TODO;
+	if(estVide(l))
+		printf("\n");
+	else{
+		afficheElement(l->val); 
+		afficheListe_r(l->suiv);
+	}
 }
 
-void detruireElement(Element e) {}
+void detruireElement(Element e) {
+	
+}
 
 // Détruit tous les éléments de la liste l
 // version itérative
 void detruire_i(Liste l) {
-	TODO;
+	Liste cellule_parcourue = l; 
+	while(cellule_parcourue != NULL){
+		Element element_a_detruire = cellule_parcourue->val; 
+		Liste pointeur_a_detruire = cellule_parcourue; 
+		cellule_parcourue = cellule_parcourue->suiv;
+		detruireElement(element_a_detruire);
+		free(pointeur_a_detruire);
+	}
 }
 
 // version récursive
 void detruire_r(Liste l) {
-	TODO;
+	if(!estVide(l)){
+		Element element_a_detruire = l->val; 
+		Liste pointeur_a_detruire = l;
+		detruire_r(l->suiv);
+		detruireElement(element_a_detruire);  
+		free(pointeur_a_detruire);
+	}
 }
 
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l) {
-	return TODO;
+	Cellule cellule_parcourue = *l; 
+	while(cellule_parcourue.suiv != NULL){
+		cellule_parcourue = *(cellule_parcourue.suiv);
+	}
+	cellule_parcourue.suiv  = malloc(sizeof(Cellule)); 
+	cellule_parcourue.val = v; 
 }
 
 // version recursive
