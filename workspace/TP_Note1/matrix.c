@@ -6,14 +6,14 @@
 struct matrice{
 		int nbreColonnes; 
 		int nbreLignes;
-		int *tab;
+		int **val;
 };
 
 typedef struct matrice Matrix; 
 
 struct tabMatrices{
 		int nbreMatrices; 
-		Matrix **tab;
+		Matrix *matrice;
 };
 
 typedef struct tabMatrices MatrixArray; 
@@ -25,42 +25,42 @@ int scanLineAsInt() {
 }
 
 Matrix *readMatrix(){
-    int nbreColonnes, nbreLignes;
-    scanf("%i %i\n", &nbreLignes, &nbreColonnes);
-    Matrix *matrice = (Matrix *)malloc(nbreLignes*nbreColonnes*sizeof(int)); 
-    matrice -> nbreColonnes = nbreColonnes; 
-    matrice -> nbreLignes = nbreLignes;
-    for(int l=0; l<nbreLignes; l++){
-        for(int c=0; c<nbreColonnes; c++){
-            int n; 
-            (l== nbreColonnes-1 ? scanf("%i\n",&n) : scanf("%i ",&n)) ;
-            matrice->tab[l][c] = n; 
-        }
+    Matrix *matrice = malloc(sizeof(Matrix)); 
+    scanf("%i %i\n", &matrice -> nbreLignes, &matrice -> nbreColonnes);
+    matrice->val = calloc(matrice->nbreLignes, sizeof(int*));
+    for(int l=0; l<matrice->nbreLignes; l++){
+        matrice->val[l] = calloc(matrice->nbreColonnes,sizeof(int)); 
+        for(int c=0; c<matrice->nbreColonnes; c++)
+            scanf("%i ",&matrice->val[l][c]) ;
     }
     return matrice; 
 }
 
-MatrixArray *readMatrixArray(int nbreMatrices){
+MatrixArray readMatrixArray(int nbreMatrices){
     MatrixArray *matrices = (MatrixArray *)calloc(nbreMatrices,sizeof(Matrix)); 
     matrices -> nbreMatrices = nbreMatrices;
     for(int i=0 ; i<nbreMatrices; i++){
-        matrices[i].tab[i] = readMatrix(); 
+        matrices[i].matrice = readMatrix(); 
     }
-    return matrices; 
+    return *matrices; 
 }
 
-void printMatrix(Matrix matrice){
-    for(int l=0; l<matrice.nbreLignes;l++){
-        for(int c=0; l<matrice.nbreColonnes;c++)
-            (c==matrice.nbreColonnes-1 ? printf("%i\n",matrice->tab[l][c]) : printf("%i ",matrice->tab[l][c]));
+void printMatrix(Matrix *matrice){
+    printf("%i %i\n",matrice->nbreLignes,matrice->nbreColonnes);
+    for(int l=0; l<matrice->nbreLignes;l++){
+        for(int c=0; l<matrice->nbreColonnes;c++){
+            if(c!=0)
+                printf(" ");
+            printf("%i ",matrice->val[l][c]);
+        }
+        printf("\n");
     }
 }
 
-void printMatrixArray(MatrixArray *matrices, int nbreMatrices){
+void printMatrixArray(MatrixArray matrices, int nbreMatrices){
     printf("%i\n",nbreMatrices);
 	for(int i=0 ; i < nbreMatrices ; i++){
-        printf("%i %i\n",*(matrices->tab)[i].nbreLignes,matrices->tab[i].nbreColonnes);
-		printMatrix(matrices.tab[i]); 
+		printMatrix((&matrices)[i].matrice); 
     }
 }
 
@@ -68,7 +68,7 @@ int main(){
 
 	int nbreMatrices = scanLineAsInt(); 
 
-	MatrixArray *matrices; 
+	MatrixArray matrices; 
 
 	matrices = readMatrixArray(nbreMatrices); 
     printMatrixArray(matrices, nbreMatrices); 
