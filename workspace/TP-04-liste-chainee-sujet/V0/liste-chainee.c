@@ -90,17 +90,26 @@ void detruire_r(Liste l) {
 // retourne la liste dans laquelle l'élément v a été ajouté en fin
 // version itérative
 Liste ajoutFin_i(Element v, Liste l) {
-	Cellule cellule_parcourue = *l; 
-	while(cellule_parcourue.suiv != NULL){
-		cellule_parcourue = *(cellule_parcourue.suiv);
+	Cellule *nouvelle_cellule = malloc(sizeof(Cellule)); 
+	Cellule *cellule_parcourue = l; 
+	while(cellule_parcourue->suiv != NULL){
+		cellule_parcourue = cellule_parcourue->suiv;
 	}
-	cellule_parcourue.suiv  = malloc(sizeof(Cellule)); 
-	cellule_parcourue.val = v; 
+	cellule_parcourue->suiv = nouvelle_cellule; 
+	nouvelle_cellule->val = v; 
+	nouvelle_cellule->suiv = NULL; 
 }
 
 // version recursive
 Liste ajoutFin_r(Element v, Liste l) {
-	return TODO;
+	if(l->suiv ==NULL){
+		Cellule *nouvelle_cellule = malloc(sizeof(Cellule));
+		l->suiv = nouvelle_cellule; 
+		nouvelle_cellule->val = v; 
+		nouvelle_cellule->suiv = NULL; 
+	}
+	else
+		ajoutFin_r(v, l->suiv); 
 }
 
 // compare deux elements
@@ -111,19 +120,37 @@ bool equalsElement(Element e1, Element e2){
 // Retourne un pointeur sur l'élément de la liste l contenant la valeur v ou NULL
 // version itérative
 Liste cherche_i(Element v,Liste l) {
-	return TODO;
+	Cellule *cellule_parcourue = l; 
+	while(cellule_parcourue->suiv != NULL){
+		if(equalsElement(cellule_parcourue->val, v))
+			return cellule_parcourue; 
+		cellule_parcourue = cellule_parcourue->suiv;
+	}
+	return NULL; 
 }
 
 // version récursive
 Liste cherche_r(Element v,Liste l) {
-	return TODO;
+	if(l==NULL)
+		return NULL; 
+	else{
+		if(equalsElement(v, l->val))
+			return l; 
+		cherche_r(v, l->suiv); 
+	}
 }
 
 // Retourne la liste modifiée dans la laquelle le premier élément ayant la valeur v a été supprimé
 // ne fait rien si aucun élément possède cette valeur
 // version itérative
 Liste retirePremier_i(Element v, Liste l) {
-	return TODO;
+	if(cherche_r(v,l)!=NULL){
+		Cellule *cellule_parcourue = l; 
+		while(!equalsElement(v,cellule_parcourue)){
+			cellule_parcourue = cellule_parcourue->suiv;
+		}
+		
+	}
 }
 
 
