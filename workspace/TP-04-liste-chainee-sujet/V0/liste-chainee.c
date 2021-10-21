@@ -146,12 +146,11 @@ Liste cherche_r(Element v,Liste l) {
 Liste retirePremier_i(Element v, Liste l) {
 	if(cherche_r(v,l)!=NULL){
 		Cellule *pointeur = cherche_r(v,l); 
-		Liste liste = l; 
 		while(l->suiv != pointeur){
 			l = l->suiv; 
 		}
-		l->suiv = pointeur->suiv; 
-		return liste; 
+		l = pointeur->suiv; 
+		return l; 
 	}
 	else 
 		return l;
@@ -174,7 +173,11 @@ Liste retirePremier_r(Element v, Liste l) {
 
 
 void afficheEnvers_r(Liste l) {
-	TODO;
+	if(estVide(l))
+		printf(l->val)
+	else{
+		
+	}
 }
 
 
