@@ -145,18 +145,31 @@ Liste cherche_r(Element v,Liste l) {
 // version itérative
 Liste retirePremier_i(Element v, Liste l) {
 	if(cherche_r(v,l)!=NULL){
-		Cellule *cellule_parcourue = l; 
-		while(!equalsElement(v,cellule_parcourue)){
-			cellule_parcourue = cellule_parcourue->suiv;
+		Cellule *pointeur = cherche_r(v,l); 
+		Liste liste = l; 
+		while(l->suiv != pointeur){
+			l = l->suiv; 
 		}
-		
+		l->suiv = pointeur->suiv; 
+		return liste; 
 	}
+	else 
+		return l;
 }
 
 
 // version recursive
 Liste retirePremier_r(Element v, Liste l) {
-	return TODO;
+	if(cherche_r(v,l)!=NULL){
+		if(!equalsElement(v,l->val))
+			retirePremier_r(v,l->suiv); 
+		else {
+			l = l->suiv; 
+			return l; 
+		}
+	}
+	else
+		return l; 
 }
 
 
