@@ -20,23 +20,26 @@ void detruireElement(Element e){
 }
 
 void afficheElement(Element e){
-    printf("Nom : %s\n",e->titre);
-    printf("Artiste : %s\n",e->artiste);
-    printf("Album : %s \n",e->album);
-    printf("Genre : %s \n",e->genre);
-    printf("Disque numéro : %i \n",e->numeroDisque);
-    printf("Musqiue numéro : %i \n",e->numeroMusique);
-    printf("Année : %i \n",e->annee);
+    Music el = (Music)e; 
+    printf("Nom : %s\n",el->titre);
+    printf("Artiste : %s\n",el->artiste);
+    printf("Album : %s \n",el->album);
+    printf("Genre : %s \n",el->genre);
+    printf("Disque numéro : %i \n",el->numeroDisque);
+    printf("Musqiue numéro : %i \n",el->numeroMusique);
+    printf("Année : %i \n",el->annee);
 }
 
 bool equalsElement(Element e1, Element e2){
-    return (strcmp(e1->titre, e2->titre)==0 && 
-            strcmp(e1->artiste, e2->artiste)==0 && 
-            strcmp(e1->album , e2->album)==0 && 
-            strcmp(e1->genre , e2->genre)==0 && 
-            e1->numeroDisque == e2->numeroDisque && 
-            e1->numeroMusique == e2->numeroMusique && 
-            e1->annee == e2->annee ); 
+    Music el1 = (Music)e1; 
+    Music el2 = (Music)e2; 
+    return (strcmp(el1->titre, el2->titre)==0 && 
+            strcmp(el1->artiste, el2->artiste)==0 && 
+            strcmp(el1->album , el2->album)==0 && 
+            strcmp(el1->genre , el2->genre)==0 && 
+            el1->numeroDisque == el2->numeroDisque && 
+            el1->numeroMusique == el2->numeroMusique && 
+            el1->annee == el2->annee ); 
 }
 
 void main(){
