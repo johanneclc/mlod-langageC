@@ -3,7 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/workspace/TP-04-liste-chainee-sujet/V1"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
