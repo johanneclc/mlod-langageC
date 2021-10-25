@@ -2,6 +2,18 @@
 
 #include <stdbool.h>
 
+struct Music{
+    char *titre;
+    char *artiste;
+    char *album;
+    char *genre;
+    int numeroDisque;
+    int numeroMusique;
+    int annee;
+};
+
+typedef struct Music *Music; 
+
 typedef void *Element;
 
 struct cellule_s {
@@ -13,9 +25,9 @@ typedef struct cellule_s Cellule;
 
 typedef Cellule* Liste;
 
-extern void afficheElement(Element e);
-extern void detruireElement(Element e);
-extern bool equalsElement(Element e1, Element e2);
+void afficheElement(Element e);
+void detruireElement(Element e);
+bool equalsElement(Element e1, Element e2);
 
 // retourne vrai si l est vide et faux sinon
 bool estVide(Liste l);
