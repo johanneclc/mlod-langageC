@@ -3,15 +3,24 @@
 #include <stdio.h>
 #include <string.h>
 
+int plusPetit(Liste l){
+    if(estVide(l->suiv))
+        return ((Music) l->val)->annee; 
+    if(plusPetit(l->suiv) > ((Music) l->val)->annee)
+        return ((Music) l->val)->annee ; 
+    else    
+        return plusPetit(l->suiv);        
+}
+
 Music readMusic(char *line){
     Music music = malloc(sizeof(Music)); 
-    music->titre = strdup(strsep(line,","));
-    music->artiste = strdup(strsep(line,","));
-    music->album = strdup(strsep(line,","));
-    music->genre = strdup(strsep(line,","));
-    music->numeroDisque = (int) strdup(strsep(line,","));
-    music->numeroMusique = (int) strdup(strsep(line,","));
-    music->annee = (int) strdup(strsep(line,","));
+    music->titre = strdup(strsep(&line,","));
+    music->artiste = strdup(strsep(&line,","));
+    music->album = strdup(strsep(&line,","));
+    music->genre = strdup(strsep(&line,","));
+    music->numeroDisque = atoi(strsep(&line,","));
+    music->numeroMusique = atoi(strsep(&line,","));
+    music->annee = atoi(strsep(&line,","));
 
     return music; 
 }
@@ -27,25 +36,21 @@ Liste readMusics(FILE *f){
     return listeMusic; 
 }
 
-void main(){
-    char *line = "Bonjour, Johanne, Salut ";
+void main(){ 
 
-    printf("Bonjour");
-    printf(strsep(&line,","));
-    printf(strsep(&line,","));
- 
+    char fileName[] = "music.csv";
+    FILE* f;
+    f = fopen(fileName,"r");
 
-    // char fileName[] = "music.csv";
-    // FILE* f;
-    // f = fopen(fileName,"r");
+    Liste musiques = NULL; 
 
-    // Liste musiques = NULL; 
+    musiques = readMusics(f);
+    afficheListe_r(musiques); 
 
-    // musiques = readMusics(f);
-    // afficheListe_r(musiques); 
+    printf("La plus petite annee : %i \n", plusPetit(musiques)); 
 
-    // detruire_r(musiques); 
-    // fclose(f); 
+    detruire_r(musiques); 
+    fclose(f); 
 
     return EXIT_SUCCESS; 
 }
