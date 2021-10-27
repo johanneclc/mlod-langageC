@@ -24,11 +24,13 @@ void trier_r(Liste l){
     }
 }
 
-//Problème de fuite mémoire et d'affichage pour le Titre de la musique 
+// Problème de fuite mémoire (free(): invalid next size (fast) Aborted) 
+// Je pense que ca vient de la fonction detruireElement 
+// Probleme d'affichage pour le Titre de la musique (impossible de comprendre pourquoi)
 Music readMusic(char *line){
     Music music = malloc(sizeof(Music)); 
     char * temp = strdup(line); 
-    music->titre = (char *) strsep(&temp,",");
+    music->titre = (char *)strsep(&temp,",");
     music->artiste = (char *)strsep(&temp,",");
     music->album = (char *)strsep(&temp,",");
     music->genre = (char *)strsep(&temp,",");
