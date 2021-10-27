@@ -3,31 +3,45 @@
 #include <stdio.h>
 #include <string.h>
 
-int plusPetit(Liste l){
-    if(estVide(l->suiv))
-        return ((Music) l->val)->annee; 
-    if(plusPetit(l->suiv) > ((Music) l->val)->annee)
-        return ((Music) l->val)->annee ; 
-    else    
-        return plusPetit(l->suiv);        
+//Remonte le prmier élément de la liste à sa place dans l'ordre chronologique des années 
+void trierPremierElement(Liste l){
+    if(!estVide(l) && !estVide(l->suiv)){
+        while(!estVide(l->suiv)){
+            if(((Music)l->val)->annee > ((Music)l->suiv->val)->annee){
+                Music temp = (Music)l->val; 
+                l->val = l->suiv->val ;
+                l->suiv->val = temp; 
+            }
+            l = l->suiv;
+        }
+    }
+}
+
+void trier_r(Liste l){
+    if(!estVide(l) && !estVide(l->suiv)){
+        trier_r(l->suiv); 
+        trierPremierElement(l); 
+    }
 }
 
 Music readMusic(char *line){
     Music music = malloc(sizeof(Music)); 
-    music->titre = strdup(strsep(&line,","));
-    music->artiste = strdup(strsep(&line,","));
-    music->album = strdup(strsep(&line,","));
-    music->genre = strdup(strsep(&line,","));
-    music->numeroDisque = atoi(strsep(&line,","));
-    music->numeroMusique = atoi(strsep(&line,","));
-    music->annee = atoi(strsep(&line,","));
+    char * temp = strdup(line); 
+    music->titre = strsep(&temp,",");
+    music->artiste = strsep(&temp,",");
+    music->album = strsep(&temp,",");
+    music->genre = strsep(&temp,",");
+    music->numeroDisque = atoi(strsep(&temp,","));
+    music->numeroMusique = atoi(strsep(&temp,","));
+    music->annee = atoi(strsep(&temp,","));
+    free(temp); 
 
     return music; 
 }
 
 Liste readMusics(FILE *f){
     Liste listeMusic = NULL; 
-    char line[1000] ; 
+    char line[1500] ; 
     fgets(line,sizeof(line),f); 
     while(fgets(line,sizeof(line),f)){
         Music music = readMusic(line); 
@@ -47,7 +61,8 @@ void main(){
     musiques = readMusics(f);
     afficheListe_r(musiques); 
 
-    printf("La plus petite annee : %i \n", plusPetit(musiques)); 
+    // trier_r(musiques); 
+    // afficheListe_r(musiques); 
 
     detruire_r(musiques); 
     fclose(f); 

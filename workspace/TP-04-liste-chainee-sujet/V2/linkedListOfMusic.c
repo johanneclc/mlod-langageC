@@ -15,7 +15,8 @@ void afficheElement(Element e){
 }
 
 void detruireElement(Element e){
-    free(e);
+	Music el = (Music)e; 
+	free(el);
 }
 
 bool equalsElement(Element e1, Element e2){
@@ -107,7 +108,7 @@ Liste ajoutFin_i(Element v, Liste l) {
 	Cellule *cellule_parcourue = l; 
 	if(estVide(l))
 		return creer(v); 
-	while(cellule_parcourue->suiv != NULL){
+	while(!estVide(cellule_parcourue->suiv)){
 		cellule_parcourue = cellule_parcourue->suiv;
 	}
 	cellule_parcourue->suiv = creer(v); 
