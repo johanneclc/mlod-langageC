@@ -24,13 +24,14 @@ void trier_r(Liste l){
     }
 }
 
+//Problème de fuite mémoire et d'affichage pour le Titre de la musique 
 Music readMusic(char *line){
     Music music = malloc(sizeof(Music)); 
     char * temp = strdup(line); 
-    music->titre = strsep(&temp,",");
-    music->artiste = strsep(&temp,",");
-    music->album = strsep(&temp,",");
-    music->genre = strsep(&temp,",");
+    music->titre = (char *) strsep(&temp,",");
+    music->artiste = (char *)strsep(&temp,",");
+    music->album = (char *)strsep(&temp,",");
+    music->genre = (char *)strsep(&temp,",");
     music->numeroDisque = atoi(strsep(&temp,","));
     music->numeroMusique = atoi(strsep(&temp,","));
     music->annee = atoi(strsep(&temp,","));
@@ -61,8 +62,8 @@ void main(){
     musiques = readMusics(f);
     afficheListe_r(musiques); 
 
-    // trier_r(musiques); 
-    // afficheListe_r(musiques); 
+    trier_r(musiques); 
+    afficheListe_r(musiques); 
 
     detruire_r(musiques); 
     fclose(f); 
