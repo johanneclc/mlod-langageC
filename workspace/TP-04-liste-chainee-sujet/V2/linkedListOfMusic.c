@@ -16,6 +16,7 @@ void afficheElement(Element e){
 
 void detruireElement(Element e){
 	Music el = (Music)e; 
+	free(el->titre);
 	free(el);
 }
 

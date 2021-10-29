@@ -28,7 +28,7 @@ void trier_r(Liste l){
 // Je pense que ca vient de la fonction detruireElement 
 // Probleme d'affichage pour le Titre de la musique (impossible de comprendre pourquoi)
 Music readMusic(char *line){
-    Music music = malloc(sizeof(Music)); 
+    Music music = malloc(sizeof(struct Music)); 
     char * temp = strdup(line); 
     music->titre = (char *)strsep(&temp,",");
     music->artiste = (char *)strsep(&temp,",");
@@ -37,7 +37,7 @@ Music readMusic(char *line){
     music->numeroDisque = atoi(strsep(&temp,","));
     music->numeroMusique = atoi(strsep(&temp,","));
     music->annee = atoi(strsep(&temp,","));
-    free(temp); 
+    //free(temp); 
 
     return music; 
 }
@@ -48,12 +48,13 @@ Liste readMusics(FILE *f){
     fgets(line,sizeof(line),f); 
     while(fgets(line,sizeof(line),f)){
         Music music = readMusic(line); 
+        afficheElement(music);
         listeMusic = ajoutFin_r(music,listeMusic);
     }
     return listeMusic; 
 }
 
-void main(){ 
+int main(){ 
 
     char fileName[] = "music.csv";
     FILE* f;
@@ -62,10 +63,10 @@ void main(){
     Liste musiques = NULL; 
 
     musiques = readMusics(f);
-    afficheListe_r(musiques); 
+    //afficheListe_r(musiques); 
 
-    trier_r(musiques); 
-    afficheListe_r(musiques); 
+    //trier_r(musiques); 
+    //afficheListe_r(musiques); 
 
     detruire_r(musiques); 
     fclose(f); 
