@@ -179,22 +179,32 @@ ArbreBinaire recherche_r(ArbreBinaire a, Element elem){
 
 
 // suppime x de a
+// a->val = min(a->filsDroit); 
 ArbreBinaire supprimer_r(ArbreBinaire a,Element e){
-	if(estVide(recherche_r(a,e)))
+	if(estVide(a))
 		return a; 
-	else{
-		if(a->val < e)
-			a->filsDroit = supprimer_r(a->filsDroit,e) ;
+	if(a->val < e) {
+		a->filsDroit = supprimer_r(a->filsDroit,e);
+		return a; 
 	}
-	
-
-	return NULL;
+	if(a->val > e) {
+		a->filsGauche = supprimer_r(a->filsGauche,e);
+		return a; 
+	}
+	if(a->val == e){
+		a->val = min(a->filsDroit)->val;
+		detruire_r(min(a->filsDroit)); 
+		return a; 
+	}
 }
 
 void detruire_r(ArbreBinaire a){
-	detruire_r(a->filsDroit); 
-	detruire_r(a->filsGauche); 
-	free(a); 
-
+	if(!estVide(a)){
+		if(!estVide(a->filsDroit))
+			detruire_r(a->filsDroit); 
+		if(!estVide(a->filsGauche))
+			detruire_r(a->filsGauche); 
+		free(a);
+	}
 }
 

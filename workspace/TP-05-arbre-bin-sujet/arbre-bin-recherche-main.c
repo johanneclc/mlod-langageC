@@ -38,7 +38,7 @@ int main(void){
 	printf("max de a= %i\n",max(a)->val);
 
 	ArbreBinaire b = recherche_r(a,2); 
-	afficheGRD_r(b);
+	afficheGRD_r(b);printf("\n");
 
 	// a = insere_r(a,7);
 	// afficheGRD_r(a);printf("\n");
@@ -50,9 +50,9 @@ int main(void){
 	// afficheGRD_r(a);printf("\n");
 	// printf("nombreDeNoeud(a)= %i\n",nombreDeNoeud(a));
 
-// 	a = supprimer_r(a,6);
-// 	afficheGRD_r(a);printf("\n");
-// 	printf("nombreDeNoeud(a)= %i\n",nombreDeNoeud(a));
+	a = supprimer_r(a,3);
+	afficheGRD_r(a);printf("\n");
+	printf("nombreDeNoeud(a)= %i\n",nombreDeNoeud(a));
 //
 // 	a = supprimer_r(a,5);
 // 	afficheGRD_r(a);printf("\n");
