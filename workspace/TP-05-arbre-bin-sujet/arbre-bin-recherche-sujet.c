@@ -109,7 +109,7 @@ ArbreBinaire pere(ArbreBinaire a, Element e){
 
 void afficheRGD_r(ArbreBinaire a){
 	if(!estVide(a)){
-		printf("%i \n", a->val); 
+		printf("%i", a->val); 
 		printf("(");
 		afficheRGD_r(a->filsGauche);
 		printf(")");
@@ -133,13 +133,13 @@ void afficheGRD_r(ArbreBinaire a){
 
 void afficheGDR_r(ArbreBinaire a){
 	if(!estVide(a)){
-		printf("%i \n", a->val); 
-		printf("(");
-		afficheRGD_r(a->filsDroit);
-		printf(")");
 		printf("(");
 		afficheRGD_r(a->filsGauche);
 		printf(")");
+		printf("(");
+		afficheRGD_r(a->filsDroit);
+		printf(")");
+		printf("%i", a->val); 
 	}
 }
 
@@ -169,10 +169,10 @@ ArbreBinaire max(ArbreBinaire a){
 // retourne l'arbre dont la valeur de la racine est elem et NULL si elem n'existe dans a 
 // version récursive
 ArbreBinaire recherche_r(ArbreBinaire a, Element elem){
-	if(a->val == elem)
-		return a; 
 	if(estVide(a))
 		return NULL; 
+	if(a->val == elem)
+		return a; 
 	else
 		return (a->val < elem ? recherche_r(a->filsDroit,elem) : recherche_r(a->filsGauche,elem)) ;
 }
@@ -192,8 +192,13 @@ ArbreBinaire supprimer_r(ArbreBinaire a,Element e){
 		return a; 
 	}
 	if(a->val == e){
+		if(estVide(a->filsDroit))
+			return a->filsGauche;
+		else if(estVide(a->filsGauche))
+			return a->filsDroit;
+		
 		a->val = min(a->filsDroit)->val;
-		detruire_r(min(a->filsDroit)); 
+		a->filsDroit = supprimer_r(a->filsDroit, a->val); 
 		return a; 
 	}
 }
