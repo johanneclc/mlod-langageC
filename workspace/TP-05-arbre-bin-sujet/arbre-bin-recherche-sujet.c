@@ -27,14 +27,24 @@ ArbreBinaire creer(Element e) {
 ArbreBinaire insere_i(ArbreBinaire a, Element e) {
 	if(estVide(a))
 		return creer(e); 
-	ArbreBinaire noeud_parcouru = a;
+	else if(a->val == e ) 
+		return a; 
+	ArbreBinaire noeud_prec = a; 
+	ArbreBinaire noeud_parcouru = (a->val < e ? a->filsDroit : a->filsGauche);
 	while(!estVide(noeud_parcouru)){
+		noeud_prec = noeud_parcouru; 
 		if(noeud_parcouru->val == e)
 			return a; 
-		if(noeud_parcouru->val < e)
+		else if(noeud_parcouru->val < e)
+			noeud_parcouru = noeud_parcouru->filsDroit; 
+		else if(noeud_parcouru->val > e)
 			noeud_parcouru = noeud_parcouru->filsGauche; 
-
 	}
+	if(noeud_prec->val < e)
+		noeud_prec->filsDroit = creer(e); 
+	else if(noeud_prec->val > e)
+		noeud_prec->filsGauche = creer(e);  
+
 	return a;
 }	
 
